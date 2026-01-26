@@ -236,6 +236,26 @@ img {
   object-fit: cover;
 }
 
+.banner-desktop {
+  display: none;
+}
+
+/* Below 992px → mobile image */
+.banner-mobile {
+  display: block;
+}
+
+/* Above 991px → desktop image */
+@media (min-width: 992px) {
+  .banner-mobile {
+    display: none;
+  }
+
+  .banner-desktop {
+    display: block;
+  }
+}
+
 .banner-overlay {
   position: absolute;
   top: 0;
