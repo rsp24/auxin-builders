@@ -414,43 +414,48 @@
       (function () {
         emailjs.init("Kx-srywq3d7jL-TiJ"); // replace this
       })();
-    </script>
-    <script>
-      document.getElementById("contact-form").addEventListener("submit", function (e) {
-        e.preventDefault();
-    
-        const btn = document.getElementById("submit-btn");
-        const status = document.getElementById("form-status");
-    
-        btn.disabled = true;
-        btn.textContent = "Sending...";
-        status.style.display = "none";
-    
-        emailjs.sendForm(
-          "service_6hu0ynb",
-          "template_1qa6rkl",
-          this
-        ).then(
-          function () {
-            status.style.display = "block";
-            status.style.color = "green";
-            status.textContent = "Thank you! Your message has been sent.";
-    
-            btn.disabled = false;
-            btn.textContent = "Send Message";
-            document.getElementById("contact-form").reset();
-          },
-          function (error) {
-            status.style.display = "block";
-            status.style.color = "red";
-            status.textContent = "Something went wrong. Please try again.";
-    
-            btn.disabled = false;
-            btn.textContent = "Send Message";
-            console.error(error);
-          }
-        );
-      });
+        document.getElementById("contact-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+        
+            const btn = this.querySelector("button[type='submit']");
+            const status = document.getElementById("form-status");
+        
+            btn.disabled = true;
+            btn.textContent = "Sending...";
+            status.style.display = "none";
+        
+            const data = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value,
+                requirement: document.getElementById("requirement").value
+            };
+        
+            emailjs.send(
+                "service_6hu0ynb",
+                "template_1qa6rkl",
+                data
+            )
+            .then(() => {
+                status.style.display = "block";
+                status.style.color = "#0f4c81";
+                status.textContent = "Thank you! Your message has been sent.";
+        
+                e.target.reset();
+                btn.disabled = false;
+                btn.textContent = "Send Message";
+            })
+            .catch((err) => {
+                console.error("EmailJS Error:", err);
+        
+                status.style.display = "block";
+                status.style.color = "red";
+                status.textContent = "Something went wrong. Please try again.";
+        
+                btn.disabled = false;
+                btn.textContent = "Send Message";
+            });
+        });
     </script>
 </body>
 
