@@ -292,22 +292,54 @@
                 <form id="contact-form">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Your Name">
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            placeholder="Your Name"
+                        >
                     </div>
+                
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="Your Email">
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="Your Email"
+                        >
                     </div>
+                
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="Your Phone Number">
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            required
+                            placeholder="Your Phone Number"
+                        >
                     </div>
+                
                     <div class="form-group">
                         <label for="requirement">Requirement</label>
-                        <textarea id="requirement" name="requirement" rows="4" required
-                            placeholder="Tell us about your project"></textarea>
+                        <textarea
+                            id="requirement"
+                            name="requirement"
+                            rows="4"
+                            required
+                            placeholder="Tell us about your project"
+                        ></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                
+                    <!-- Status messages -->
+                    <p id="form-status" style="display:none;"></p>
+                
+                    <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
+                        Send Message
+                    </button>
                 </form>
             </div>
         </div>
@@ -376,7 +408,50 @@
       "openingHours": "Mo-Sa 09:00-18:00"
     }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
+    <script>
+      (function () {
+        emailjs.init("Kx-srywq3d7jL-TiJ"); // replace this
+      })();
+    </script>
+    <script>
+      document.getElementById("contact-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+    
+        const btn = document.getElementById("submit-btn");
+        const status = document.getElementById("form-status");
+    
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+        status.style.display = "none";
+    
+        emailjs.sendForm(
+          "service_6hu0ynb",
+          "template_1qa6rkl",
+          this
+        ).then(
+          function () {
+            status.style.display = "block";
+            status.style.color = "green";
+            status.textContent = "Thank you! Your message has been sent.";
+    
+            btn.disabled = false;
+            btn.textContent = "Send Message";
+            document.getElementById("contact-form").reset();
+          },
+          function (error) {
+            status.style.display = "block";
+            status.style.color = "red";
+            status.textContent = "Something went wrong. Please try again.";
+    
+            btn.disabled = false;
+            btn.textContent = "Send Message";
+            console.error(error);
+          }
+        );
+      });
+    </script>
 </body>
 
 </html>
