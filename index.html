@@ -32,24 +32,23 @@
     <link rel="icon" type="image/png" href="/images/auxin-logo.png">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <link rel="stylesheet" href="style.css">
-    
+
     <meta name="google-site-verification" content="t5qLUANCBcom3LeZ9XC-7GhozlEpfjEXnOQpuzRi0rM" />
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FSECSBV172"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FSECSBV172"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'G-FSECSBV172');
-</script>
+        gtag('config', 'G-FSECSBV172');
+    </script>
 
 </head>
 
@@ -268,7 +267,10 @@
             </div>
             <div class="map-container">
                 <!-- Embedding a placeholder map centered on Cherupuzha -->
-                <iframe title="Auxin Builders Location Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d675.8134634772273!2d75.35683452017268!3d12.267509194799509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba45db775b03ad7%3A0x18fee7af6be6f2ee!2sAuxin%20Builders!5e0!3m2!1sen!2sin!4v1769415511184!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe title="Auxin Builders Location Map"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d675.8134634772273!2d75.35683452017268!3d12.267509194799509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba45db775b03ad7%3A0x18fee7af6be6f2ee!2sAuxin%20Builders!5e0!3m2!1sen!2sin!4v1769415511184!5m2!1sen!2sin"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
@@ -305,51 +307,28 @@
                 <form id="contact-form">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            required
-                            placeholder="Your Name"
-                        >
+                        <input type="text" id="name" name="name" required placeholder="Your Name">
                     </div>
-                
+
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                            placeholder="Your Email"
-                        >
+                        <input type="email" id="email" name="email" required placeholder="Your Email">
                     </div>
-                
+
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            required
-                            placeholder="Your Phone Number"
-                        >
+                        <input type="tel" id="phone" name="phone" required placeholder="Your Phone Number">
                     </div>
-                
+
                     <div class="form-group">
                         <label for="requirement">Requirement</label>
-                        <textarea
-                            id="requirement"
-                            name="requirement"
-                            rows="4"
-                            required
-                            placeholder="Tell us about your project"
-                        ></textarea>
+                        <textarea id="requirement" name="requirement" rows="4" required
+                            placeholder="Tell us about your project"></textarea>
                     </div>
-                
+
                     <!-- Status messages -->
                     <p id="form-status" style="display:none;"></p>
-                
+
                     <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
                         Send Message
                     </button>
@@ -424,50 +403,43 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
     <script>
-      (function () {
-        emailjs.init("Kx-srywq3d7jL-TiJ"); // replace this
-      })();
+        (function () {
+            emailjs.init("Kx-srywq3d7jL-TiJ"); // replace this
+        })();
         document.getElementById("contact-form").addEventListener("submit", function (e) {
             e.preventDefault();
-        
+
             const btn = this.querySelector("button[type='submit']");
             const status = document.getElementById("form-status");
-        
+
             btn.disabled = true;
             btn.textContent = "Sending...";
             status.style.display = "none";
-        
-            const data = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                phone: document.getElementById("phone").value,
-                requirement: document.getElementById("requirement").value
-            };
-        
-            emailjs.send(
+
+            emailjs.sendForm(
                 "service_6hu0ynb",
                 "template_1qa6rkl",
-                data
+                e.target
             )
-            .then(() => {
-                status.style.display = "block";
-                status.style.color = "#0f4c81";
-                status.textContent = "Thank you! Your message has been sent.";
-        
-                e.target.reset();
-                btn.disabled = false;
-                btn.textContent = "Send Message";
-            })
-            .catch((err) => {
-                console.error("EmailJS Error:", err);
-        
-                status.style.display = "block";
-                status.style.color = "red";
-                status.textContent = "Something went wrong. Please try again.";
-        
-                btn.disabled = false;
-                btn.textContent = "Send Message";
-            });
+                .then(() => {
+                    status.style.display = "block";
+                    status.style.color = "#0f4c81";
+                    status.textContent = "Thank you! Your message has been sent.";
+
+                    e.target.reset();
+                    btn.disabled = false;
+                    btn.textContent = "Send Message";
+                })
+                .catch((err) => {
+                    console.error("EmailJS Error:", err);
+
+                    status.style.display = "block";
+                    status.style.color = "red";
+                    status.textContent = "Something went wrong. Please try again.";
+
+                    btn.disabled = false;
+                    btn.textContent = "Send Message";
+                });
         });
     </script>
 </body>
